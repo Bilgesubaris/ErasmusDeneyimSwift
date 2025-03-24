@@ -8,41 +8,156 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showLogin = false
+    @State private var showRegister = false
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                Spacer() // Butonları ortalamak için üstte boşluk bırakır
+
+                Text("Hoş Geldiniz!")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+
+                Button(action: {
+                    showLogin = true
+                }) {
+                    Text("Öğrenci Girişi")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 40)
+
+                Button(action: {
+                    showLogin = true
+                }) {
+                    Text("Admin Girişi")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.purple)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 40)
+
+                Spacer() // Butonları ortalamak için altta da boşluk bırakır
+
+        
+            }
+            .navigationDestination(isPresented: $showLogin) {
+                LoginView(showRegister: $showRegister)
+            }
+            .navigationDestination(isPresented: $showRegister) {
+                RegisterView()
+            }
+        }
+    }
+}
+
+struct LoginView: View {
+    @Binding var showRegister: Bool
+    @State private var username = ""
+    @State private var password = ""
+
     var body: some View {
         VStack(spacing: 20) {
-            Text("Hoş Geldiniz!")
+            Text("Giriş Yap")
                 .font(.largeTitle)
-                .padding()
+                .bold()
+
+            TextField("Kullanıcı Adı", text: $username)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
+
+            SecureField("Şifre", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
 
             Button(action: {
-                print("Öğrenci Girişi butonuna tıklandı!")
+                print("Giriş yapıldı!")
             }) {
-                Text("Öğrenci Girişi")
+                Text("Giriş Yap")
                     .font(.title2)
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green) // Yeşil renk
+                    .background(Color.blue)
                     .cornerRadius(10)
             }
             .padding(.horizontal, 40)
 
+            // "Kayıt Ol" butonu yazı şeklinde olacak
             Button(action: {
-                print("Admin Girişi butonuna tıklandı!")
+                showRegister = true
             }) {
-                Text("Admin Girişi")
-                    .font(.title2)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.purple) // Mor renk
-                    .cornerRadius(10)
+                Text("Kayıt Ol")
+                    .foregroundColor(.blue)
+                    .underline()
             }
-            .padding(.horizontal, 40)
+            .padding(.top, 10)
+
+            Spacer()
         }
+        .padding(.top, 50)
+    }
+}
+
+struct RegisterView: View {
+    @State private var name = ""
+    @State private var surname = ""
+    @State private var email = ""
+    @State private var password = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Kayıt Ol")
+                .font(.largeTitle)
+                .bold()
+
+            TextField("İsim", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
+
+            TextField("Soyisim", text: $surname)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
+
+            TextField("E-posta", text: $email)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
+                .keyboardType(.emailAddress)
+
+            SecureField("Şifre", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 40)
+
+            Button(action: {
+                print("Kayıt Olundu!")
+            }) {
+                Text("Kayıt Ol")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal, 40)
+
+            Spacer()
+        }
+        .padding(.top, 50)
     }
 }
 
 #Preview {
     ContentView()
 }
+
