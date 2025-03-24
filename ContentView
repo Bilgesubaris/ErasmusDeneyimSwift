@@ -1,0 +1,48 @@
+//
+//  ContentView.swift
+//  Erasmus
+//
+//  Created by Bilgesu Barış on 24.03.2025.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Hoş Geldiniz!")
+                .font(.largeTitle)
+                .padding()
+
+            Button(action: {
+                print("Öğrenci Girişi butonuna tıklandı!")
+            }) {
+                Text("Öğrenci Girişi")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green) // Yeşil renk
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal, 40)
+
+            Button(action: {
+                print("Admin Girişi butonuna tıklandı!")
+            }) {
+                Text("Admin Girişi")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.purple) // Mor renk
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal, 40)
+        }
+    }
+}
+
+#Preview {
+    ContentView()
+}
